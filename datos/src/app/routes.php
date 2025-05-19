@@ -27,4 +27,13 @@ $app->group('/api', function (RouteCollectorProxy $api) {
         $endpoint->delete('/{id}', Cliente::class . ':delete');
         $endpoint->get('/filtrar/{pag}/{lim}', Cliente::class . ':filtrar');
     });
+
+
+    $api->group('/administrador', function (RouteCollectorProxy $endpoint) {
+    $endpoint->get('/read[/{id}]', Administrador::class . ':read');
+    $endpoint->post('', Administrador::class . ':create');
+    $endpoint->put('/{id}', Administrador::class . ':update');
+    $endpoint->delete('/{id}', Administrador::class . ':delete');
+});
+
 });
