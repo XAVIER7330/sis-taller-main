@@ -1,0 +1,74 @@
+networks:
+  dto-red:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.0.0/24" #?Subred de la red
+services:
+  db:
+    image: mysql:latest #Busca una imagen para descargar
+    container_name: base_datos #Nombre para nuestro contenedor
+    environment: #Maneja variables de entorno
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_password #?Archivo que contiene la contraseña de la base de datos
+      MYSQL_DATABASE: taller #Nombre que se le da a la bd
+      #PASSWORD=12345
+    ports: #Puertos locales
+     - 3306:3306
+    volumes:
+      - ./mysql:/var/lib/mysql #
+      - ./db_dump:/docker-entrypoint-initdb.d
+    secrets:
+      - db_password #?Archivo que contiene la contraseña de la base de datos
+    networks:
+      dto-red:
+        ipv4_address: "192.168.0.10" #?IP del contenedor
+  phpmyadmin:
+     image: phpmyadmin/phpmyadmin
+     container_name: phpmyadmin
+     ports:
+      - 8080:80
+     environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+     networks:
+      dto-red:
+        ipv4_address: "192.168.0.11" #?IP del contenedor
+  webdatos:
+    container_name: web_datos
+    volumes:
+      - ./datos/src/:/var/www/html/src
+      - ./datos/public:/var/www/html/public
+    build:
+      context: .
+      dockerfile: ./datos/Dockerfile
+    ports:
+      - 8000:80
+    depends_on:
+      - db
+    networks:
+      dto-red:
+        ipv4_address: "192.168.0.12" #?IP del contenedor
+  webnegocio:
+    container_name: web_negocio
+    volumes:
+      - ./negocio/src/:/var/www/html/src
+      - ./negocio/public:/var/www/html/public
+    build:
+      context: .
+      dockerfile: ./negocio/Dockerfile
+    ports:
+      - 9000:80
+    depends_on:
+      - webdatos
+    networks:
+      dto-red:
+        ipv4_address: "192.168.0.13" #?IP del contenedor
+secrets:
+  db_password:
+    file: ./db_password.txt #?Archivo que contiene la contraseña de la base de datos
+volumes:
+  db_dump:
+  mysql:
+  datos:
+  webdatos:
+  webnegocio:

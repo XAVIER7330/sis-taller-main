@@ -1,0 +1,15 @@
+INSERT INTO artefacto (idCliente, serie, marca, modelo, categoria, descripcion) 
+VALUES 
+(1, 'A001', 'Samsung', 'Galaxy S21', 'Electrónica', 'Teléfono móvil de alta gama'),
+(2, 'A002', 'LG', 'Smart TV 55"', 'Electrónica', 'Televisor inteligente de 55 pulgadas'),
+(3, 'A003', 'Sony', 'PlayStation 5', 'Videojuegos', 'Consola de videojuegos de última generación'),
+(4, 'A004', 'Dell', 'XPS 13', 'Computadoras', 'Laptop ultraligera y potente'),
+(5, 'A005', 'Apple', 'iPad Pro', 'Tablets', 'Tablet de alto rendimiento con pantalla Retina');
+
+INSERT INTO cliente (idCliente, nombre, apellido1, apellido2, telefono, celular, direccion, correo) 
+VALUES 
+('C001', 'Juan', 'Pérez', 'Gómez', '123456789', '987654321', 'Calle Falsa 123', 'juan.perez@example.com'),
+('C002', 'María', 'López', 'Martínez', '987654321', '123456789', 'Avenida Siempre Viva 456', 'maria.lopez@example.com'),
+('C003', 'Carlos', 'Ramírez', 'Torres', '111222333', '444555666', 'Calle Luna 789', 'carlos.ramirez@example.com'),
+('C004', 'Ana', 'García', 'Hernández', '777888999', '000111222', 'Boulevard Sol 321', 'ana.garcia@example.com'),
+('C005', 'Luis', 'Fernández', 'Morales', '555666777', '888999000', 'Plaza Central 654', 'luis.fernandez@example.com');
